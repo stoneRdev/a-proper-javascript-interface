@@ -41,6 +41,7 @@ Usage was made to be simple (as can be)
 Somewhere near the entrance to your code, put `require('a-proper-interface')` and your ready to go
 
 #### Declaring/Using an interface
+
 ##### Option 1 - Symbols
 
 ```javascript
