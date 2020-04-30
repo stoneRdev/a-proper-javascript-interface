@@ -123,7 +123,7 @@ For example:
 When a class implements the interface, the same process is done (collecting all static and non-static members not from the base class), but every member's signature is compared to the interfaces declared signature, and a useful error is thrown if somethin' don't add up.
 
 ### Caveats
-*I knew there was a catch*
+*I knew there was a catch!*
 
 Ok, so this isn't fool-proof, and there are some holes that need to be kept in mind
 
