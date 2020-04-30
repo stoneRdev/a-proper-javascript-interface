@@ -26,7 +26,9 @@
 *Lemme see what this is all about*
 
 `npm -i a-proper-interface`
+
 *or*
+
 `yarn add a-proper-interface` 
 
 
