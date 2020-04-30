@@ -2,7 +2,10 @@
 ## A Proper Interface
 *A more proper interface system for javascript*
 
+
+
 ## Contents 
+
 [Installation](#installation)
 
 [Usage](#usage)
@@ -18,12 +21,14 @@
 [Footnotes](#footnotes)
 
 
-#### installation
+
+### installation
 *Lemme see what this is all about*
 
 `npm -i a-proper-interface`
 *or*
 `yarn add a-proper-interface` 
+
 
 
 ### Usage

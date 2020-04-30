@@ -71,7 +71,8 @@ class AnInterface {
 		//   i.e.
 			let dynamicObjectType = (new Function(`return new (class ${dynamicClassType} {})`))()
 
-		// * if the member is not a function nor object , the type is stored and compared using typeof
+		// * if the member is not a function nor object , the type is 
+		//   stored and compared using typeof.
 	}
 }
 
