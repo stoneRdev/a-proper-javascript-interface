@@ -75,7 +75,7 @@ Everything from the number of arguments expected on functions (even constructors
 
 I was building a remote code execution library, and came across a strong desire to enforce a set of functions for said remote code. Initially I just used duck-typing, but this quickly grew out of hand for the myriad of different code signatures I was loading. 
 
-Now, as javascript doesn't have a 'proper' interface setup[^1], I tasked myself with tossing one together.
+Now, as javascript doesn't have a 'proper' interface setup<sup>[1](#fn1)</sup>, I tasked myself with tossing one together.
 
 Really, this is only a type of 'drop in' until javascript have (hopefully) natively supports it, but, for now, it has served me well, and I'd like to release it into the wild, with the hopes that, with a 'proper' mechanism available, interfaces will become a more widespread use-case, and hopefully show the core dev team that this is feature is desired enough to adopt (I'd love to see interface/implements keywords in native JS).
 
@@ -85,9 +85,9 @@ Really, this is only a type of 'drop in' until javascript have (hopefully) nativ
 
 It's not much of a monster really. Which I'm hoping the simplicity of it helps it gain traction on getting adopted. 
 
-It works by passing a class to the global 'interface' method, which associates a symbol to it, and stores this class in a table keyed up by the symbol. It then returns this symbol. This is your reference to the interface internally[^2].
+It works by passing a class to the global 'interface' method, which associates a symbol to it, and stores this class in a table keyed up by the symbol. It then returns this symbol. This is your reference to the interface internally<sup>[2](#fn2)</sup>.
 
-When a class wants to implement the interface, it should do so by extending the result of the the 'Implementable'[^3] function, i.e. `class SomeClass extends Implementable() {}`.
+When a class wants to implement the interface, it should do so by extending the result of the the 'Implementable'<sup>[3](#fn3)</sup> function, i.e. `class SomeClass extends Implementable() {}`.
 
 The 'Implementable' function accepts a class as an argument, so a class can still be extended normally, i.e. `class SomeClass extends Implementable(SomeBaseClass) {}`
 
@@ -97,12 +97,12 @@ The 'Implementable' function has no way to identify the class that called it, ot
 
 This is where the symbol returned/exported from 'interface' method would come into play. 
 
-When called, the 'implements' method takes the symbol or class provided, looks up the interface or creates it[^4], then enforces the properties of said interface into the class. 
+When called, the 'implements' method takes the symbol or class provided, looks up the interface or creates it<sup>[4](#fn4)</sup>, then enforces the properties of said interface into the class. 
 
 ### How it works
 *What is that thing doing to them?*
 
-So now the meat of it. This works by comparing types, prototypes, names, and function lengths on static and non-static members[^5].
+So now the meat of it. This works by comparing types, prototypes, names, and function lengths on static and non-static members<sup>[5](#fn5)</sup>.
 For example:
 
 *functions:*
@@ -131,7 +131,7 @@ Ok, so this isn't fool-proof, and there are some holes that need to be kept in m
 
 Take, for example, `fs.statSync`. Say you want to ensure that a class has an instance of 'Stats' on it. Well, the interface needs this defined on it somewhere to reference, and `fs.statSync` expects a path to generate one, which is not the job of an interface to know, so it doesn's seem like a 'Stats' object could be enforced.
 
-Since only the names of objects are compared, you could circumvent this behaviour by either making a dummy class[^6]:
+Since only the names of objects are compared, you could circumvent this behaviour by either making a dummy class<sup>[6](#fn6)</sup>:
 ```javascript
 class SomeInterface {
 	constructor() {
@@ -139,7 +139,7 @@ class SomeInterface {
 	}
 }
 ```
-*or* by tricking the constructor/generator into doing it anyway[^7]
+*or* by tricking the constructor/generator into doing it anyway<sup>[7](#fn7)</sup>
 ```javascript
 class SomeInterface {
 	constructor() {
@@ -151,16 +151,16 @@ class SomeInterface {
 
 ### Footnotes
 
-[^1]: ya, ya, typescript, whatever. It's not 'javascript' enough for me
+<a name="fn1">1</a>: ya, ya, typescript, whatever. It's not 'javascript' enough for me
 
-[^2]: this is not needed, as you can always just pass the interface to 'implements' directly, but is there to provide for caching, and as a way to rid of the actual class, preventing it from being extended accidentally.
+<a name="fn2">2</a>: this is not needed, as you can always just pass the interface to 'implements' directly, but is there to provide for caching, and as a way to rid of the actual class, preventing it from being extended accidentally.
 
-[^3]: the 'Implementable' function returns a class 'Implementation', which extends either the passed class or an 'EmptyClass', and this 'Implementation' class is what you extend.
+<a name="fn3">3</a>: the 'Implementable' function returns a class 'Implementation', which extends either the passed class or an 'EmptyClass', and this 'Implementation' class is what you extend.
 
-[^4]: if a class is passed, the class has an internal reference to it created temporarily, which is deleted after enforcement is done. This lowers the memory footprint but slightly raises execution time
+<a name="fn4">4</a>: if a class is passed, the class has an internal reference to it created temporarily, which is deleted after enforcement is done. This lowers the memory footprint but slightly raises execution time
 
-[^5]: not included from the base type (i.e. Object or Array)
+<a name="f5">5</a>: not included from the base type (i.e. Object or Array)
 
-[^6]: preferred, works for everything that I've tested against
+<a name="fn6">6</a>: preferred, works for everything that I've tested against
 
-[^7]: a little undefined behaviour there, and very specific to the situation
+<a name="fn7">7</a>: a little undefined behaviour there, and very specific to the situation
