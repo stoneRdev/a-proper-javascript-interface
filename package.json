@@ -1,0 +1,8 @@
+{
+  "name": "a-proper-interface",
+  "version": "1.0.0",
+  "description": "A more proper and native interface system for javascript than what is available",
+  "main": "index.js",
+  "author": "werlious <jftemp11@gmail.com>",
+  "license": "MIT"
+}
