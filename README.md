@@ -3,8 +3,6 @@
 *A more proper interface system for javascript*
 
 ## Contents 
-[Table Of Contents](#contents)
-
 [Installation](#installation)
 
 [Usage](#usage)
