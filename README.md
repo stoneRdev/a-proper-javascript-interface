@@ -4,12 +4,19 @@
 
 ## Contents 
 [Table Of Contents](#contents)
+
 [Installation](#installation)
+
 [Usage](#usage)
+
 [Ideology](#ideology)
+
 [Execution](#execution)
+
 [How It Works](#how-it-works)
+
 [Caveats](#caveats)
+
 [Footnotes](#footnotes)
 
 
