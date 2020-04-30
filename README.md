@@ -38,7 +38,7 @@
 
 Usage was made to be simple (as can be)
 
-Somewhere near the entrance to your code, put `require('a-proper-interface')` and your ready to go
+Somewhere near the entrance to your code, put `require('a-proper-interface')` and you're ready to go
 
 #### Declaring/Using an interface
 
@@ -66,6 +66,7 @@ SomeImplementation.implements(require('someInterface.js'))
 ```
 
 *and that's it*
+
 Everything from the number of arguments expected on functions (even constructors) and type of object down to whether the member is static or not is compared and enforced 
 
 
