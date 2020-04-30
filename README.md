@@ -22,7 +22,7 @@
 
 
 
-### installation
+### Installation
 *Lemme see what this is all about*
 
 `npm -i a-proper-interface`
@@ -42,7 +42,7 @@ Somewhere near the entrance to your code, put `require('a-proper-interface')` an
 
 #### Declaring/Using an interface
 
-##### Option 1 - Symbols
+#### Option 1 - Symbols
 
 ```javascript
 //someInterface.js
