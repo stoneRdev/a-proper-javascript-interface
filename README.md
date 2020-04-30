@@ -120,7 +120,7 @@ For example:
 	`1/0/2` is seen as `[primitive]{type:"number"}`
 	and so on
 
-When a class implements the interface, the same process is done (collecting all static and non-static members not from the base class), but every member's signature is compared to the interfaces declared signature, and a useful error is thrown if something don't add up.
+When a class implements the interface, the same process is done (collecting all static and non-static members not from the base class), but every member's signature is compared to the interfaces declared signature, and a useful error is thrown if somethin' don't add up.
 
 ### Caveats
 *I knew there was a catch*
