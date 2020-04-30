@@ -102,7 +102,7 @@ When called, the 'implements' method takes the symbol or class provided, looks u
 ### How it works
 *What is that thing doing to them?*
 
-So now the meat of it. this works by comparing types, prototypes, names, and function lengths on static and non-static members[^5].
+So now the meat of it. This works by comparing types, prototypes, names, and function lengths on static and non-static members[^5].
 For example:
 
 *functions:*
