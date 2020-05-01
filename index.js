@@ -96,25 +96,25 @@ function enforceInterface(iface,on) {
 	}
 	if(!interfaces[iface]) throw new Error("Interface not defined: ("+iface+")")
 	iface = interfaces[iface]
-	if(iface.proto.length !== on.length) throw new Error("Constructor implementing "+iface.symbol+" requires "+iface.proto.length+" arguments but "+on.length+" were defined")
+	if(iface.proto.length !== on.length) throw new Error("Constructor implementing "+iface.symbol.toString()+" requires "+iface.proto.length+" arguments but "+on.length+" were defined")
 	for(const sf in iface.staticFunctions) {
-		if(isNotDefined(on[sf])) throw new Error("Static Function ["+sf+"] (required from interface "+iface.symbol+") is not implemented")
-		if(on[sf].length !== iface.staticFunctions[sf]) throw new Error("Static Function ["+sf+"] (required from interface "+iface.symbol+") expects "+iface.staticFunctions[sf]+" arguments but "+(on[sf].length)+" were defined")
+		if(isNotDefined(on[sf])) throw new Error("Static Function ["+sf+"] (required from interface "+iface.symbol.toString()+") is not implemented")
+		if(on[sf].length !== iface.staticFunctions[sf]) throw new Error("Static Function ["+sf+"] (required from interface "+iface.symbol.toString()+") expects "+iface.staticFunctions[sf]+" arguments but "+(on[sf].length)+" were defined")
 	}
 	for(const sm in iface.staticMembers) {
-		if(isNotDefined(on[sm])) throw new Error("Static Member ["+sm+"] (required from interface "+iface.symbol+") is not implemented")
-		if(iface.staticMembers[sm].object === true && on[sm].constructor.name !== iface.staticMembers[sm].type) throw new Error("Static Member ["+sm+"] (required from interface "+iface.symbol+") is expected to be of type \""+iface.staticMembers[sm].type+"\" but \""+on[sm].constructor.name+"\" was provided")
-		if(iface.staticMembers[sm].object === false && typeof on[sm] !== iface.staticMembers[sm].type) throw new Error("Static Member ["+sm+"] (required from interface "+iface.symbol+") is expected to be of type \""+iface.staticMembers[sm].type+"\" but \""+(typeof on[sm])+"\" was provided")
+		if(isNotDefined(on[sm])) throw new Error("Static Member ["+sm+"] (required from interface "+iface.symbol.toString()+") is not implemented")
+		if(iface.staticMembers[sm].object === true && on[sm].constructor.name !== iface.staticMembers[sm].type) throw new Error("Static Member ["+sm+"] (required from interface "+iface.symbol.toString()+") is expected to be of type \""+iface.staticMembers[sm].type+"\" but \""+on[sm].constructor.name+"\" was provided")
+		if(iface.staticMembers[sm].object === false && typeof on[sm] !== iface.staticMembers[sm].type) throw new Error("Static Member ["+sm+"] (required from interface "+iface.symbol.toString()+") is expected to be of type \""+iface.staticMembers[sm].type+"\" but \""+(typeof on[sm])+"\" was provided")
 	}
 	var _ = new on()
 	for(const f in iface.functions) {
-		if(isNotDefined(_[f])) throw new Error("Function ["+f+"] (required from interface "+iface.symbol+") is not implemented")
-		if(_[f].length !== iface.functions[f]) throw new Error("Function ["+f+"] (required from interface "+iface.symbol+") expects "+iface.functions[f]+" arguments but "+(_[f].length)+" were defined")
+		if(isNotDefined(_[f])) throw new Error("Function ["+f+"] (required from interface "+iface.symbol.toString()+") is not implemented")
+		if(_[f].length !== iface.functions[f]) throw new Error("Function ["+f+"] (required from interface "+iface.symbol.toString()+") expects "+iface.functions[f]+" arguments but "+(_[f].length)+" were defined")
 	}
 	for(const m in iface.members) {
-		if(isNotDefined(_[m])) throw new Error("Member ["+m+"] (required from interface "+iface.symbol+") is not implemented")
-		if(iface.members[m].object === true && _[m].constructor.name !== iface.members[m].type) throw new Error("Member ["+m+"] (required from interface "+iface.symbol+") is expected to be of type \""+iface.members[m].type+"\" but \""+_[m].constructor.name+"\" was provided")
-		if(iface.members[m].object === false && typeof _[m] !== iface.members[m].type) throw new Error("Member ["+m+"] (required from interface "+iface.symbol+") is expected to be of type \""+iface.members[m].type+"\" but \""+(typeof _[m])+"\" was provided")
+		if(isNotDefined(_[m])) throw new Error("Member ["+m+"] (required from interface "+iface.symbol.toString()+") is not implemented")
+		if(iface.members[m].object === true && _[m].constructor.name !== iface.members[m].type) throw new Error("Member ["+m+"] (required from interface "+iface.symbol.toString()+") is expected to be of type \""+iface.members[m].type+"\" but \""+_[m].constructor.name+"\" was provided")
+		if(iface.members[m].object === false && typeof _[m] !== iface.members[m].type) throw new Error("Member ["+m+"] (required from interface "+iface.symbol.toString()+") is expected to be of type \""+iface.members[m].type+"\" but \""+(typeof _[m])+"\" was provided")
 	}
 	if(selfDestruct) delete interfaces[iface]
 	return on
