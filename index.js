@@ -41,14 +41,14 @@ function interface(proto) {
 		switch(t) {
 			case 'function':
 				iface.staticFunctions[staticKey] = {
-					size: _[staticKey].length,
-					type: _[staticKey].name
+					size: proto[staticKey].length,
+					type: proto[staticKey].name
 				};
 			break;
 			case 'object':
 				iface.staticMembers[staticKey] = {
 					object: true,
-					type: _[staticKey].constructor.name
+					type: proto[staticKey].constructor.name
 				};
 			break;
 			default: 
