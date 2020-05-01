@@ -113,7 +113,7 @@ function enforceInterface(iface,on) {
 	}
 	for(const m in iface.members) {
 		if(isNotDefined(_[m])) throw new Error("Member ["+m+"] (required from interface "+iface.symbol+") is not implemented")
-		if(iface.members[m].object === true && _[m].constructor.name !=== iface.members[m].type) throw new Error("Member ["+m+"] (required from interface "+iface.symbol+") is expected to be of type \""+iface.members[m].type+"\" but \""+_[m].constructor.name+"\" was provided")
+		if(iface.members[m].object === true && _[m].constructor.name !== iface.members[m].type) throw new Error("Member ["+m+"] (required from interface "+iface.symbol+") is expected to be of type \""+iface.members[m].type+"\" but \""+_[m].constructor.name+"\" was provided")
 		if(iface.members[m].object === false && typeof _[m] !== iface.members[m].type) throw new Error("Member ["+m+"] (required from interface "+iface.symbol+") is expected to be of type \""+iface.members[m].type+"\" but \""+(typeof _[m])+"\" was provided")
 	}
 	if(selfDestruct) delete interfaces[iface]
