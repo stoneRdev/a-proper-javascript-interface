@@ -64,8 +64,8 @@ function interface(proto) {
 		switch(t) {
 			case 'function':
 				iface.functions[key] = {
-					size: _[staticKey].length,
-					type: _[staticKey].name
+					size: _[key].length,
+					type: _[key].name
 				};
 				iface.functions[key] = _[key].length;
 			break;
