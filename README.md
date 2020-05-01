@@ -4,11 +4,15 @@
 
 
 
-## Contents 
+## Contents
+
+[Table of Contents](#contents)
 
 [Installation](#installation)
 
 [Usage](#usage)
+
+[Examples](/examples)
 
 [Ideology](#ideology)
 
@@ -22,7 +26,7 @@
 
 
 
-### Installation
+### Installation 
 *Lemme see what this is all about*
 
 `npm -i a-proper-interface`
@@ -68,6 +72,13 @@ SomeImplementation.implements(require('someInterface.js'))
 *and that's it*
 
 Everything from the number of arguments expected on functions (even constructors) and type of object down to whether the member is static or not is compared and enforced 
+
+
+### Examples
+*I need to see it before I go anywhere near that thing*
+
+Examples can be found [here](/examples)
+
 
 
 ### Ideology
@@ -131,7 +142,7 @@ Ok, so this isn't fool-proof, and there are some holes that need to be kept in m
 
 Take, for example, `fs.statSync`. Say you want to ensure that a class has an instance of 'Stats' on it. Well, the interface needs this defined on it somewhere to reference, and `fs.statSync` expects a path to generate one, which is not the job of an interface to know, so it doesn's seem like a 'Stats' object could be enforced.
 
-Since only the names of objects are compared, you could circumvent this behaviour by either making a dummy class<sup>[^6](#fn6)</sup>:
+Since only the names of objects are compared, you could circumvent this behaviour by either making a dummy class<sup>[^6](#fn6)</sup> (see also [Example 3](/examples/#example3)):
 ```javascript
 class SomeInterface {
 	constructor() {

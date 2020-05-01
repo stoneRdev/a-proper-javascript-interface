@@ -117,11 +117,12 @@ function enforceInterface(iface,on) {
 		if(iface.members[m].object === false && typeof _[m] !== iface.members[m].type) throw new Error("Member ["+m+"] (required from interface "+iface.symbol+") is expected to be of type \""+iface.members[m].type+"\" but \""+(typeof _[m])+"\" was provided")
 	}
 	if(selfDestruct) delete interfaces[iface]
+	return on
 }
 
 function Implementable(extension = class EmptyClass {}) {
 	return class Implementation extends extension {
-		static implements(iface) {enforceInterface(iface,this)}
+		static implements(iface) {return enforceInterface(iface,this)}
 	}
 }
 
