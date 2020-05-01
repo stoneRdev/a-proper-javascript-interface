@@ -42,7 +42,7 @@
 
 Usage was made to be simple (as can be)
 
-Somewhere near the entrance to your code, put `require('a-proper-interface')` and you're ready to go
+Somewhere near the entrance to your code, put `require('a-proper-interface')` and you're ready to go, but be warned, this adds functions to `global`! *ghost noises*
 
 #### Declaring/Using an interface
 
