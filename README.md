@@ -2,6 +2,7 @@
 ## A Proper Interface
 *A more proper interface system for javascript*
 
+**Note:** This is currently a work in progress! There may be (possibly breaking) bugs, and updates currently do not have a schedule. If you use this module and encounter a bug, please post it on the issues page. This package will be updated many times before it is mature, and updates may not be backwards compatable. Please check for updates frequently!
 
 
 ### Installation 
