@@ -137,7 +137,7 @@ inst[implements](SomeInterface) // true, or false 'implements' was never called 
 - [x] Add custom errors *Added as file [Errors](util/errors.js). Exported object contains all error classes*
 - [x] Move functionality to separate classes to declutter index file *All functionality moved to files in [util](util)*
 - [x] Add license *License is MIT. To add: Anyone and everyone can use/modify at will. All I ask is that the core team be reminded that interfaces need to be in javascript* 
-- [x] Enforce instance and static members separately
+- [x] Enforce instance and static members separately *implemented in filter feature*
 - [ ] Add sub-interfaces
 - [x] Add better detection of global object
 - [x] Add non-global version [no-globals](no-globals.js) *Non-global version exports all functionality instead of attaching to global*
