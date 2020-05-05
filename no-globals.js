@@ -5,56 +5,32 @@ const interfaces = {};
 const constructInterface = require('./util/constructInterfaceInternal')
 const enforceInterface = require('./util/enforceInterface')
 
-const implementsSymbol = Symbol("implements")
-const implementingSymbol = Symbol("implementing")
+const implementsSymbol = Symbol()
+const implementingSymbol = Symbol()
 const implementsTable = Symbol()
-const implementsTableKey = Symbol()
 
-if(typeof global === "object") global.implements = implementsSymbol
-if(typeof window === "object") window.implements = implementsSymbol
-if(typeof self === "object") self.implements = implementsSymbol
-
-if(typeof global === "object") global.implementing = implementingSymbol
-if(typeof window === "object") window.implementing = implementingSymbol
-if(typeof self === "object") self.implementing = implementingSymbol
-
+module.exports = {
+	implements: implementsSymbol,
+	implementing: implementingSymbol
+}
 
 function interface(proto) {
 	const iface = constructInterface(proto)
 	interfaces[iface.id] = iface
 	return iface.id
 }
-interface.CONSTRUCTOR = 0b00000001
-interface.CONSTRUCT = 0b00000010
-interface.FUNCTIONS = 0b00000100
-interface.OBJECTS = 0b00001000
-interface.PRIMITIVES = 0b00010000
-interface.STATIC_FUNCTIONS = 0b00100000
-interface.STATIC_OBJECTS = 0b01000000
-interface.STATIC_PRIMITIVES = 0b10000000
 
-interface.ALL_STATIC = interface.STATIC_FUNCTIONS | interface.STATIC_OBJECTS | interface.STATIC_PRIMITIVES
-interface.ALL_MEMBERS = interface.FUNCTIONS | interface.OBJECTS | interface.PRIMITIVES
-interface.ALL_FUNCTIONS = interface.STATIC_FUNCTIONS | interface.FUNCTIONS
-interface.ALL_OBJECTS = interface.STATIC_OBJECTS | interface.OBJECTS
-interface.ALL_PRIMITIVES = interface.PRIMITIVES | interface.STATIC_PRIMITIVES
-interface.CONSTRUCTION = interface.CONSTRUCTOR | interface.CONSTRUCT
-interface.ALL = interface.CONSTRUCTION | interface.ALL_STATIC | interface.ALL_MEMBERS
-
-
-if(typeof global === "object") global.interface = interface
-if(typeof window === "object") window.interface = interface
-if(typeof self === "object") self.interface = interface
+module.exports.interface = interface
 
 function Implementable(Extension = class EmptyBaseImplementation {}) {
 	return class Implementation extends Extension {
 		static get [implementsTable]() {
-			if(!this[implementsTableKey]) this[implementsTableKey] = []
-			return this[implementsTableKey]
+			if(!this[implementsTable]) this[implementsTable] = []
+			return this[implementsTable]
 		}
 		get [implementsTable]() {
-			if(!this[implementsTableKey]) this[implementsTableKey] = this.constructor[implementsTable]
-			return this[implementsTableKey]
+			if(!this[implementsTable]) this[implementsTable] = this.constructor[implementsTable]
+			return this[implementsTable]
 		}
 		[implementingSymbol](iface) {
 			if(Array.isArray(iface)) return iface.reduce((a,c) => {
@@ -80,7 +56,6 @@ function Implementable(Extension = class EmptyBaseImplementation {}) {
 			else return enforceInterface(interfaces,iface,this,[],this[implementsTable])
 		}
 		static [implementsSymbol](iface,args = []) {
-			let last = this
 			if(Array.isArray(iface)) return iface.reduce((a,c)=> {
 					if(a === iface[0]) return enforceInterface(interfaces,c,enforceInterface(interfaces,a,this,args,this[implementsTable]),args,this[implementsTable])
 					else return enforceInterface(interfaces,c,a,args,this[implementsTable])
@@ -90,6 +65,4 @@ function Implementable(Extension = class EmptyBaseImplementation {}) {
 	}
 }
 
-if(typeof global === "object") global.Implementable = Implementable
-if(typeof window === "object") window.Implementable = Implementable
-if(typeof self === "object") self.Implementable = Implementable
+module.exports = Implementable

@@ -1,17 +1,25 @@
 
-class BaseError {
-	constructor() {
+class BaseError extends Error {
+	constructor(message) {
+		super(`Error enforcing interface: ${message}`)
 		this.name = this.constructor.name
-		this.message = `Error enforcing interface: `
 	}
 }
 
 const Errors = {
+	EnforceInstanceWithoutInstance: class EnforceInstanceWithoutInstance extends BaseError {
+		constructor(iface,impl) {
+			super()
+			this.interface = iface
+			this.implementingClass = impl
+			this.message += `Cannot enforce instance members on class (${impl.name}) {implementing: (${iface.id.toString()})}) without instance! {Did you filter interface.MEMBERS without interface.CONSTRUCT?}`
+		}
+	},
 	InvalidInterfaceType: class InvalidInterfaceType extends BaseError {
 		constructor(iface) {
 			super()
 			this.interface = iface
-			this.message += `Cannot enforce non-function interface types! {Got type: [${typeof iface}]}`
+			this.message += `Cannot enforce non-class interface types! {Got type: [${typeof iface}]}`
 		}
 	},
 	UndefinedInterface: class UndefinedInterface extends BaseError {
@@ -43,7 +51,7 @@ const Errors = {
 			this.interfaceObject = iface
 			this.attemptedArguments = args
 			this.implementingClass = impl
-			this.message += `An error occured while constructing the class (${impl.name})${(Array.isArray(args)) ? ` {arguments were [${args.join(', ')}]}` : args ? ` {argument was [${args.toString()}]}` : ' '}implementing the interface (${iface.id}). {Error message: [${e.message}]}`
+			this.message += `An error occured while constructing the class (${impl.name})${(Array.isArray(args)) ? ` {arguments were [${args.join(', ')}]}` : args ? ` {argument was [${args.toString()}]}` : ' '}implementing the interface (${iface.id.toString()}). {Error message: [${e.message}]}`
 		}
 	},
 	ConstructorSignatureError: class ConstructorSignatureError extends BaseError {
@@ -61,9 +69,9 @@ const Errors = {
 			this.implementing = impl
 			this.attemptedArguments = args
 			this.attemptedArgumentsLength = argc
-			this.message += `Provided argument length mis-match! Implementing class (${impl.name}) {implementing interface (${iface.id.toString()})} expects [${impl.length}] arguments, but was only provided with [${argc}]${(Array.isArray(args)) ? ` {Provided arguments: [${args.join(', ')}]}` : args ? ` {Provided argument: [${args.toString()}]}` : '{No arguments provided}'}`
+			this.message += `Cannot construct implementing class: provided argument length mis-match! Implementing class (${impl.name}) {implementing interface (${iface.id.toString()})} expects [${impl.length}] arguments, but was only provided with [${argc}]${(Array.isArray(args)) ? ` {Provided arguments: [${args.join(', ')}]}` : args ? ` {Provided argument: [${args.toString()}]}` : '{No arguments provided}'}`
 		}
-	}
+	},
 	StaticFunctionMissing: class StaticFunctionMissing extends BaseError {
 		constructor(memberName,iface) {
 			super()
@@ -74,6 +82,7 @@ const Errors = {
 	},
 	StaticFunctionNameMisMatch: class StaticFunctionNameMisMatch extends BaseError {
 		constructor(memberName,iface,impl) {
+			super()
 			this.memberName = memberName
 			this.interface = iface
 			this.implementing = impl
@@ -82,6 +91,7 @@ const Errors = {
 	},
 	StaticFunctionSignatureMisMatch: class StaticFunctionSignatureMisMatch extends BaseError {
 		constructor(memberName,iface,impl) {
+			super()
 			this.memberName = memberName
 			this.interface = iface
 			this.implementing = impl
@@ -98,10 +108,11 @@ const Errors = {
 	},
 	StaticObjectTypeMisMatch: class StaticObjectTypeMisMatch extends BaseError {
 		constructor(memberName,iface,impl) {
+			super()
 			this.memberName = memberName
 			this.interface = iface
 			this.implementing = impl
-			this.message += `Static object member (${memberName}) was expected to have a type of [${iface.static.objects[memberName].type}] but was got [${impl[memberName].type}]`
+			this.message += `Static object member (${memberName}) was expected to have a type of [${iface.static.objects[memberName]}] but got [${impl[memberName].constructor.name}]`
 		}
 	},
 	StaticPrimitiveMissing: class StaticPrimitiveMissing extends BaseError {
@@ -114,10 +125,11 @@ const Errors = {
 	},
 	StaticPrimitiveTypeMisMatch: class StaticPrimitiveTypeMisMatch extends BaseError {
 		constructor(memberName,iface,impl) {
+			super()
 			this.memberName = memberName
 			this.interface = iface
 			this.implementing = impl
-			this.message += `Static primitive member (${memberName}) was expected to be of type [${iface.static.primitives[memberName].name}] but got type [${typeof impl[memberName]}]`
+			this.message += `Static primitive member (${memberName}) was expected to be of type [${iface.static.primitives[memberName]}] but got type [${typeof impl[memberName]}]`
 		}
 	},
 	FunctionMissing: class FunctionMissing extends BaseError {
@@ -125,11 +137,13 @@ const Errors = {
 			super()
 			this.memberName = memberName
 			this.interface = iface
+			console.log(iface) //tag
 			this.message += `Function (${memberName}) missing from implemeting class! (Expected to be a static function named [${iface.members.functions[memberName].name}] and expects [${iface.members.functions[memberName].argc}] arguments)`
 		}
 	},
 	FunctionNameMisMatch: class FunctionNameMisMatch extends BaseError {
 		constructor(memberName,iface,impl) {
+			super()
 			this.memberName = memberName
 			this.interface = iface
 			this.implementing = impl
@@ -138,6 +152,7 @@ const Errors = {
 	},
 	FunctionSignatureMisMatch: class FunctionSignatureMisMatch extends BaseError {
 		constructor(memberName,iface,impl) {
+			super()
 			this.memberName = memberName
 			this.interface = iface
 			this.implementing = impl
@@ -154,6 +169,7 @@ const Errors = {
 	},
 	ObjectTypeMisMatch: class ObjectTypeMisMatch extends BaseError {
 		constructor(memberName,iface,impl) {
+			super()
 			this.memberName = memberName
 			this.interface = iface
 			this.implementing = impl
@@ -170,10 +186,11 @@ const Errors = {
 	},
 	PrimitiveTypeMisMatch: class PrimitiveTypeMisMatch extends BaseError {
 		constructor(memberName,iface,impl) {
+			super()
 			this.memberName = memberName
 			this.interface = iface
 			this.implementing = impl
-			this.message += `Primitive member (${memberName}) was expected to be of type [${iface.members.primitives[memberName].name}] but got type [${typeof impl[memberName]}]`
+			this.message += `Primitive member (${memberName}) was expected to be of type [${iface.members.primitives[memberName]}] but got type [${typeof impl[memberName]}]`
 		}
 	}
 }
