@@ -141,5 +141,6 @@ inst[implements](SomeInterface) // true, or false 'implements' was never called 
 - [ ] Add sub-interfaces
 - [x] Add better detection of global object
 - [x] Add non-global version [no-globals](no-globals.js) *Non-global version exports all functionality instead of attaching to global*
+- [ ] Bug hunting 
 - [ ] Add usage example of non-global version
 - [ ] Add utilities to aid in enforcing returns from functions/constructors that expect input
