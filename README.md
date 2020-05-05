@@ -123,3 +123,23 @@ class SomeImplementation extends Implementable() {}
 const inst = SomeImplementation[implements](SomeInterface,[{test:"arguments"}])
 inst[implements](SomeInterface) // true, or false 'implements' was never called statically with the interface
 ```
+
+### Todo
+
+- [x] Add filter to selectively enforce parts of an interface
+- [x] Add basic example
+- [x] Add system operation details in README.md *Added to [Usage](#usage) section*
+- [ ] Add in-depth examples
+- [x] Add usage in README.md
+- [x] Add demonstration of multiple interfaces in README.md
+- [x] Add demonstration of checking if class implements interface
+- [x] Add demonstration of still being able to extend classes
+- [x] Add custom errors *Added as file [Errors](util/errors.js). Exported object contains all error classes*
+- [x] Move functionality to separate classes to declutter index file *All functionality moved to files in [util](util)*
+- [x] Add license *License is MIT. To add: Anyone and everyone can use/modify at will. All I ask is that the core team be reminded that interfaces need to be in javascript* 
+- [x] Enforce instance and static members separately
+- [ ] Add sub-interfaces
+- [x] Add better detection of global object
+- [x] Add non-global version [no-globals](no-globals.js) *Non-global version exports all functionality instead of attaching to global*
+- [ ] Add usage example of non-global version
+- [ ] Add utilities to aid in enforcing returns from functions/constructors that expect input
